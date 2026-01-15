@@ -19,6 +19,7 @@
         #sendBtn:hover { background-color: #2ecc71; }
         #sendBtn:disabled { background-color: #bdc3c7; cursor: not-allowed; }
         .sub-category { font-weight: bold; grid-column: 1 / -1; margin-top: 10px; color: #555; font-size: 0.9rem; background: #eee; padding: 2px 10px; }
+        .required { color: #e74c3c; font-size: 0.8rem; margin-left: 5px; }
     </style>
 </head>
 <body>
@@ -27,6 +28,18 @@
 <p>各項目を選択・入力し、最下部のボタンから条件を送信してください。</p>
 
 <form id="targetForm">
+    <div class="section">
+        <h2>基本情報</h2>
+        <div style="margin-bottom: 15px;">
+            <label>貴社名<span class="required">※必須</span></label>
+            <input type="text" name="companyName" class="input-field" placeholder="例：株式会社AI Sales" required>
+        </div>
+        <div>
+            <label>ご担当者名</label>
+            <input type="text" name="staffName" class="input-field" placeholder="例：山田 太郎">
+        </div>
+    </div>
+
     <div class="section">
         <h2>業種（複数選択可）</h2>
         <div class="grid">
@@ -168,11 +181,21 @@
     document.getElementById('sendBtn').addEventListener('click', async function() {
         const btn = this;
         const form = document.getElementById('targetForm');
-        const formData = new FormData(form);
-        const gasUrl = 'https://script.google.com/macros/s/AKfycbwcYrxlRunhDqqKEE3IkiHNX9vACtt6wYQD_eiVczwxXpig70PUnF20vokhh1skgSZ7/exec';
+        
+        // 必須チェック
+        const companyName = form.querySelector('input[name="companyName"]').value;
+        if (!companyName) {
+            alert('貴社名を入力してください。');
+            return;
+        }
 
-        // データの収集
+        const formData = new FormData(form);
+        const gasUrl = 'https://script.google.com/macros/s/AKfycbyA-TnI4K9RI97NDZkYFeKzfqPGPlAzhDB-Wefdi3JWEVgVmyrLwKmWEukFDLY3NcKt/exec';
+
+        // データの収集（会社名と担当者名を追加）
         const payload = {
+            companyName: formData.get('companyName'),
+            staffName: formData.get('staffName'),
             industries: Array.from(form.querySelectorAll('input[name="industry"]:checked')).map(el => el.value).join(' / '),
             tags: Array.from(form.querySelectorAll('input[name="tag"]:checked')).map(el => el.value).join(' / '),
             capital: formData.get('capital'),
@@ -181,21 +204,17 @@
             freeword: formData.get('freeword')
         };
 
-        // UIのフィードバック
         btn.disabled = true;
         btn.innerText = "送信中...";
 
         try {
-            // GASにデータを送信 (no-corsモードはレスポンスが取得できないため通常モードで送信)
             await fetch(gasUrl, {
                 method: 'POST',
-                mode: 'no-cors', // 簡易的な送信。ブラウザ制限回避のため。
+                mode: 'no-cors',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(payload)
             });
 
-            // no-corsの場合、成功したかどうか厳密には判定できないが、
-            // 処理が止まらなければ概ね送信されている。
             alert('データを送信しました。');
             form.reset();
         } catch (error) {
