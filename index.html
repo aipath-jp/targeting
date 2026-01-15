@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Sales X | ターゲット・プロファイリング・シート</title>
+    <style>
+        body { font-family: sans-serif; line-height: 1.6; color: #333; max-width: 900px; margin: 20px auto; padding: 0 20px; background-color: #f4f7f9; }
+        h1 { text-align: center; color: #2c3e50; }
+        .section { background: #fff; padding: 20px; border-radius: 8px; margin-bottom: 20px; shadow: 0 2px 4px rgba(0,0,0,0.1); border: 1px solid #ddd; }
+        h2 { font-size: 1.2rem; border-left: 5px solid #3498db; padding-left: 10px; margin-bottom: 15px; color: #2c3e50; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px; }
+        .checkbox-item { display: flex; align-items: center; background: #f9f9f9; padding: 8px; border-radius: 4px; cursor: pointer; border: 1px solid #eee; transition: 0.2s; }
+        .checkbox-item:hover { background: #eef7ff; }
+        .checkbox-item input { margin-right: 10px; }
+        .input-field { width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+        .btn-container { text-align: center; margin-top: 30px; margin-bottom: 50px; }
+        #downloadBtn { background-color: #27ae60; color: white; padding: 15px 40px; border: none; border-radius: 30px; font-size: 1.1rem; cursor: pointer; font-weight: bold; }
+        #downloadBtn:hover { background-color: #2ecc71; }
+        .sub-category { font-weight: bold; grid-column: 1 / -1; margin-top: 10px; color: #555; font-size: 0.9rem; background: #eee; padding: 2px 10px; }
+    </style>
+</head>
+<body>
+
+<h1>AI Sales X | ターゲット・プロファイリング・シート</h1>
+<p>各項目を選択・入力し、最下部のボタンからCSVをダウンロードして担当へお送りください。</p>
+
+<form id="targetForm">
+    <div class="section">
+        <h2>業種（複数選択可）</h2>
+        <div class="grid">
+            <div class="sub-category">■ IT</div>
+            <label class="checkbox-item"><input type="checkbox" name="industry" value="ITコンサルティング">ITコンサルティング</label>
+            <label class="checkbox-item"><input type="checkbox" name="industry" value="Web制作・メディア運営">Web制作・メディア運営</label>
+            <label class="checkbox-item"><input type="checkbox" name="industry" value="ゲーム・エンタメテック">ゲーム・エンタメテック</label>
+            <label class="checkbox-item"><input type="checkbox" name="industry" value="システムインテグレーション（SI）">システムインテグレーション（SI）</label>
+            <label class="checkbox-item"><input type="checkbox" name="industry" value="ソフトウェア開発・SaaS">ソフトウェア開発・SaaS</label>
+            <label class="checkbox-item"><input type="checkbox" name="industry" value="ハードウェア・IoT">ハードウェア・IoT</label>
+            <label class="checkbox-item"><input type="checkbox" name="industry" value="通信・インフラ">通信・インフラ</label>
+            
+            <div class="sub-category">■ サービス</div>
+            <label class="checkbox-item"><input type="checkbox" name="industry" value="エンターテイメント">エンターテイメント</label>
+            <label class="checkbox-item"><input type="checkbox" name="industry" value="コンサルティング">コンサルティング</label>
+            <label class="checkbox-item"><input type="checkbox" name="industry" value="人材（派遣・紹介）">人材（派遣・紹介）</label>
+            <label class="checkbox-item"><input type="checkbox" name="industry" value="冠婚葬祭・イベント">冠婚葬祭・イベント</label>
+            <label class="checkbox-item"><input type="checkbox" name="industry" value="専門サービス（士業）">専門サービス（士業）</label>
+            <label class="checkbox-item"><input type="checkbox" name="industry" value="広告・マーケティング">広告・マーケティング</label>
+            <label class="checkbox-item"><input type="checkbox" name="industry" value="施設管理・清掃">施設管理・清掃</label>
+            <label class="checkbox-item"><input type="checkbox" name="industry" value="旅行・宿泊">旅行・宿泊</label>
+            <label class="checkbox-item"><input type="checkbox" name="industry" value="環境・リサイクル">環境・リサイクル</label>
+            <label class="checkbox-item"><input type="checkbox" name="industry" value="美容・リラクゼーション">美容・リラクゼーション</label>
+            <label class="checkbox-item"><input type="checkbox" name="industry" value="運輸・物流">運輸・物流</label>
+
+            <div class="sub-category">■ 不動産</div>
+            <label class="checkbox-item"><input type="checkbox" name="industry" value="不動産仲介・売買">不動産仲介・売買</label>
+            <label class="checkbox-item"><input type="checkbox" name="industry" value="不動産賃貸・管理">不動産賃貸・管理</label>
+            <label class="checkbox-item"><input type="checkbox" name="industry" value="不動産開発・デベロッパー">不動産開発・デベロッパー</label>
+
+            <div class="sub-category">■ 医療・福祉</div>
+            <label class="checkbox-item"><input type="checkbox" name="industry" value="ヘルスケアサービス">ヘルスケアサービス</label>
+            <label class="checkbox-item"><input type="checkbox" name="industry" value="介護・福祉施設">介護・福祉施設</label>
+            <label class="checkbox-item"><input type="checkbox" name="industry" value="歯科">歯科</label>
+            <label class="checkbox-item"><input type="checkbox" name="industry" value="病院・クリニック">病院・クリニック</label>
+            <label class="checkbox-item"><input type="checkbox" name="industry" value="薬局・ドラッグストア">薬局・ドラッグストア</label>
+
+            <div class="sub-category">■ 小売・卸売</div>
+            <label class="checkbox-item"><input type="checkbox" name="industry" value="EC・通販">EC・通販</label>
+            <label class="checkbox-item"><input type="checkbox" name="industry" value="卸売・商社">卸売・商社</label>
+            <label class="checkbox-item"><input type="checkbox" name="industry" value="専門店（アパレル・家電・書店等）">専門店（アパレル・家電・書店等）</label>
+            <label class="checkbox-item"><input type="checkbox" name="industry" value="総合小売（スーパー・百貨店）">総合小売（スーパー・百貨店）</label>
+
+            <div class="sub-category">■ 建設</div>
+            <label class="checkbox-item"><input type="checkbox" name="industry" value="土木・インフラ工事">土木・インフラ工事</label>
+            <label class="checkbox-item"><input type="checkbox" name="industry" value="建築・リフォーム">建築・リフォーム</label>
+            <label class="checkbox-item"><input type="checkbox" name="industry" value="建築設計・デザイン">建築設計・デザイン</label>
+            <label class="checkbox-item"><input type="checkbox" name="industry" value="総合建設（ゼネコン）">総合建設（ゼネコン）</label>
+            <label class="checkbox-item"><input type="checkbox" name="industry" value="設備工事（電気・空調・衛生）">設備工事（電気・空調・衛生）</label>
+
+            <div class="sub-category">■ 教育</div>
+            <label class="checkbox-item"><input type="checkbox" name="industry" value="学校・大学">学校・大学</label>
+            <label class="checkbox-item"><input type="checkbox" name="industry" value="学習塾・予備校">学習塾・予備校</label>
+            <label class="checkbox-item"><input type="checkbox" name="industry" value="研修・語学">研修・語学</label>
+
+            <div class="sub-category">■ 製造</div>
+            <label class="checkbox-item"><input type="checkbox" name="industry" value="アパレル・繊維">アパレル・繊維</label>
+            <label class="checkbox-item"><input type="checkbox" name="industry" value="化学・素材・エネルギー">化学・素材・エネルギー</label>
+            <label class="checkbox-item"><input type="checkbox" name="industry" value="医薬品・医療機器">医薬品・医療機器</label>
+            <label class="checkbox-item"><input type="checkbox" name="industry" value="建築資材">建築資材</label>
+            <label class="checkbox-item"><input type="checkbox" name="industry" value="機械・設備">機械・設備</label>
+            <label class="checkbox-item"><input type="checkbox" name="industry" value="生活用品・雑貨">生活用品・雑貨</label>
+            <label class="checkbox-item"><input type="checkbox" name="industry" value="自動車・輸送機器">自動車・輸送機器</label>
+            <label class="checkbox-item"><input type="checkbox" name="industry" value="金属製品">金属製品</label>
+            <label class="checkbox-item"><input type="checkbox" name="industry" value="電子部品・半導体">電子部品・半導体</label>
+            <label class="checkbox-item"><input type="checkbox" name="industry" value="食品・飲料">食品・飲料</label>
+
+            <div class="sub-category">■ 金融</div>
+            <label class="checkbox-item"><input type="checkbox" name="industry" value="その他金融（リース・クレジット）">その他金融（リース・クレジット）</label>
+            <label class="checkbox-item"><input type="checkbox" name="industry" value="保険">保険</label>
+            <label class="checkbox-item"><input type="checkbox" name="industry" value="投資・資産運用">投資・資産運用</label>
+            <label class="checkbox-item"><input type="checkbox" name="industry" value="銀行・証券">銀行・証券</label>
+
+            <div class="sub-category">■ 飲食</div>
+            <label class="checkbox-item"><input type="checkbox" name="industry" value="カフェ・喫茶店">カフェ・喫茶店</label>
+            <label class="checkbox-item"><input type="checkbox" name="industry" value="ケータリング・デリバリー">ケータリング・デリバリー</label>
+            <label class="checkbox-item"><input type="checkbox" name="industry" value="レストラン・専門料理店">レストラン・専門料理店</label>
+            <label class="checkbox-item"><input type="checkbox" name="industry" value="居酒屋・バー">居酒屋・バー</label>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>事業タグ・属性（複数選択可）</h2>
+        <div class="grid">
+            <div class="sub-category">■ ターゲット層</div>
+            <label class="checkbox-item"><input type="checkbox" name="tag" value="BtoB">BtoB</label>
+            <label class="checkbox-item"><input type="checkbox" name="tag" value="BtoC">BtoC</label>
+            
+            <div class="sub-category">■ 事業モデル</div>
+            <label class="checkbox-item"><input type="checkbox" name="tag" value="EC">EC</label>
+            <label class="checkbox-item"><input type="checkbox" name="tag" value="SaaS">SaaS</label>
+            <label class="checkbox-item"><input type="checkbox" name="tag" value="サブスクリプション">サブスクリプション</label>
+            <label class="checkbox-item"><input type="checkbox" name="tag" value="プラットフォーム">プラットフォーム</label>
+            <label class="checkbox-item"><input type="checkbox" name="tag" value="メーカー">メーカー</label>
+            <label class="checkbox-item"><input type="checkbox" name="tag" value="商社">商社</label>
+
+            <div class="sub-category">■ 企業属性</div>
+            <label class="checkbox-item"><input type="checkbox" name="tag" value="スタートアップ・ベンチャー">スタートアップ・ベンチャー</label>
+            <label class="checkbox-item"><input type="checkbox" name="tag" value="上場企業">上場企業</label>
+            <label class="checkbox-item"><input type="checkbox" name="tag" value="中小企業">中小企業</label>
+            <label class="checkbox-item"><input type="checkbox" name="tag" value="新設法人">新設法人</label>
+
+            <div class="sub-category">■ 提供形態</div>
+            <label class="checkbox-item"><input type="checkbox" name="tag" value="コンサルティング">コンサルティング</label>
+            <label class="checkbox-item"><input type="checkbox" name="tag" value="システム開発">システム開発</label>
+            <label class="checkbox-item"><input type="checkbox" name="tag" value="人材派遣">人材派遣</label>
+            <label class="checkbox-item"><input type="checkbox" name="tag" value="人材紹介">人材紹介</label>
+            <label class="checkbox-item"><input type="checkbox" name="tag" value="受託開発">受託開発</label>
+            <label class="checkbox-item"><input type="checkbox" name="tag" value="運営代行">運営代行</label>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>会社規模・詳細要件</h2>
+        <div style="margin-bottom: 15px;">
+            <label>資本金（例：1,000万円以上）</label>
+            <input type="text" name="capital" class="input-field" placeholder="例：1,000万円以上">
+        </div>
+        <div style="margin-bottom: 15px;">
+            <label>従業員数（例：50名〜200名）</label>
+            <input type="text" name="employees" class="input-field" placeholder="例：50名〜200名">
+        </div>
+        <div style="margin-bottom: 15px;">
+            <label>設立年（例：2010年以降）</label>
+            <input type="text" name="established" class="input-field" placeholder="例：2010年以降">
+        </div>
+        <div>
+            <label>フリーワード（定性的な要件、除外条件など）</label>
+            <textarea name="freeword" class="input-field" rows="4" placeholder="例：●●の展示会に出展している企業、二次請けメインの企業は除外、など"></textarea>
+        </div>
+    </div>
+
+    <div class="btn-container">
+        <button type="button" id="downloadBtn">ターゲット条件をCSVで出力する</button>
+    </div>
+</form>
+
+<script>
+    document.getElementById('downloadBtn').addEventListener('click', function() {
+        const form = document.getElementById('targetForm');
+        const formData = new FormData(form);
+        
+        // データの収集
+        const industries = Array.from(form.querySelectorAll('input[name="industry"]:checked')).map(el => el.value).join(' / ');
+        const tags = Array.from(form.querySelectorAll('input[name="tag"]:checked')).map(el => el.value).join(' / ');
+        const capital = formData.get('capital');
+        const employees = formData.get('employees');
+        const established = formData.get('established');
+        const freeword = formData.get('freeword').replace(/\n/g, ' ');
+
+        // CSVの内容作成
+        const headers = ["項目", "指定内容"];
+        const rows = [
+            ["業種", industries],
+            ["事業タグ・属性", tags],
+            ["資本金", capital],
+            ["従業員数", employees],
+            ["設立年", established],
+            ["フリーワード要件", freeword]
+        ];
+
+        let csvContent = "\ufeff"; // Excel文字化け防止(BOM)
+        csvContent += headers.join(",") + "\n";
+        rows.forEach(row => {
+            csvContent += row.map(text => `"${text}"`).join(",") + "\n";
+        });
+
+        // ダウンロード処理
+        const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+        const link = document.createElement("a");
+        const url = URL.createObjectURL(blob);
+        const now = new Date();
+        const dateStr = now.getFullYear() + ('0' + (now.getMonth() + 1)).slice(-2) + ('0' + now.getDate()).slice(-2);
+        
+        link.setAttribute("href", url);
+        link.setAttribute("download", `target_conditions_${dateStr}.csv`);
+        link.style.visibility = 'hidden';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    });
+</script>
+
+</body>
+</html>
