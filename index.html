@@ -182,7 +182,6 @@
         const btn = this;
         const form = document.getElementById('targetForm');
         
-        // 必須チェック
         const companyName = form.querySelector('input[name="companyName"]').value;
         if (!companyName) {
             alert('貴社名を入力してください。');
@@ -190,9 +189,9 @@
         }
 
         const formData = new FormData(form);
-        const gasUrl = 'https://script.google.com/macros/s/AKfycbwoCc8T1XqtQma4L9LZ8aMzvzGYWy71Iqs1Pw6XQQSJy3Ob8wTh93gMGek_g3RUdgaB/exec';
+        // ★ここに最新のデプロイURLを貼ってください
+        const gasUrl = 'https://script.google.com/macros/s/AKfycbxD_3S5tNkQiYgyeEkUkZ8qpGK7Dph4Z_0nA-_g2QI1NpSNCVk50bVbyKcrstesd7HJ/exec';
 
-        // データの収集（会社名と担当者名を追加）
         const payload = {
             companyName: formData.get('companyName'),
             staffName: formData.get('staffName'),
@@ -208,18 +207,20 @@
         btn.innerText = "送信中...";
 
         try {
+            // GASへの送信（Content-Typeをあえてtext/plainにすることでCORSを回避）
             await fetch(gasUrl, {
                 method: 'POST',
                 mode: 'no-cors',
-                headers: { 'Content-Type': 'application/json' },
+                headers: { 'Content-Type': 'text/plain' }, 
                 body: JSON.stringify(payload)
             });
 
+            // no-corsの場合、成功したかどうか判定できないため、送信できれば良しとする
             alert('データを送信しました。');
             form.reset();
         } catch (error) {
             console.error('Error:', error);
-            alert('送信に失敗しました。時間をおいて再度お試しください。');
+            alert('送信に失敗しました。');
         } finally {
             btn.disabled = false;
             btn.innerText = "ターゲット条件を送信する";
