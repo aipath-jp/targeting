@@ -3,39 +3,279 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Sales X | ターゲット・プロファイリング・シート</title>
+    <title>AI Sales X | ターゲット・プロファイリング</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        body { font-family: sans-serif; line-height: 1.6; color: #333; max-width: 900px; margin: 20px auto; padding: 0 20px; background-color: #f4f7f9; }
-        h1 { text-align: center; color: #2c3e50; }
-        .section { background: #fff; padding: 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); border: 1px solid #ddd; }
-        h2 { font-size: 1.2rem; border-left: 5px solid #3498db; padding-left: 10px; margin-bottom: 15px; color: #2c3e50; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px; }
-        .checkbox-item { display: flex; align-items: center; background: #f9f9f9; padding: 8px; border-radius: 4px; cursor: pointer; border: 1px solid #eee; transition: 0.2s; }
-        .checkbox-item:hover { background: #eef7ff; }
-        .checkbox-item input { margin-right: 10px; }
-        .input-field { width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
-        .btn-container { text-align: center; margin-top: 30px; margin-bottom: 50px; }
-        #sendBtn { background-color: #27ae60; color: white; padding: 15px 40px; border: none; border-radius: 30px; font-size: 1.1rem; cursor: pointer; font-weight: bold; }
-        #sendBtn:hover { background-color: #2ecc71; }
-        #sendBtn:disabled { background-color: #bdc3c7; cursor: not-allowed; }
-        .sub-category { font-weight: bold; grid-column: 1 / -1; margin-top: 10px; color: #555; font-size: 0.9rem; background: #eee; padding: 2px 10px; }
-        .required { color: #e74c3c; font-size: 0.8rem; margin-left: 5px; }
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1e40af;
+            --accent: #3b82f6;
+            --bg-gradient: linear-gradient(135deg, #f0f4f8 0%, #d9e2ec 100%);
+            --card-bg: #ffffff;
+            --text-main: #102a43;
+            --text-sub: #486581;
+            --border: #bcccdc;
+        }
+
+        body {
+            font-family: 'Inter', 'Noto Sans JP', sans-serif;
+            background: var(--bg-gradient);
+            color: var(--text-main);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+
+        /* 信頼性を示すヘッダーバー */
+        .top-brand-bar {
+            background: #102a43;
+            color: white;
+            padding: 8px 20px;
+            font-size: 0.75rem;
+            text-align: right;
+            letter-spacing: 0.05em;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+
+        .service-tag {
+            background: var(--primary);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            display: inline-block;
+            margin-bottom: 16px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin: 0 0 16px 0;
+            color: #102a43;
+        }
+
+        .description {
+            font-size: 1.1rem;
+            color: var(--text-sub);
+            max-width: 650px;
+            margin: 0 auto;
+        }
+
+        /* セクション・カード */
+        .section {
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 20px;
+            margin-bottom: 32px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+        }
+
+        h2 {
+            font-size: 1.4rem;
+            display: flex;
+            align-items: center;
+            margin-top: 0;
+            margin-bottom: 30px;
+            color: var(--text-main);
+            border-left: 5px solid var(--primary);
+            padding-left: 15px;
+        }
+
+        /* フォーム要素 */
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        label {
+            display: block;
+            font-weight: 700;
+            margin-bottom: 10px;
+            font-size: 0.95rem;
+        }
+
+        .required-tag {
+            background: #ff4d4f;
+            color: white;
+            font-size: 0.65rem;
+            padding: 2px 8px;
+            border-radius: 4px;
+            margin-left: 10px;
+            vertical-align: middle;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 14px 18px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s;
+            box-sizing: border-box;
+            background: #f8fafc;
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: var(--primary);
+            background: #fff;
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+        }
+
+        /* グリッド選択UIの強化 */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 12px;
+        }
+
+        .sub-category {
+            grid-column: 1 / -1;
+            font-size: 0.9rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin: 25px 0 10px 0;
+            display: flex;
+            align-items: center;
+        }
+        .sub-category::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: #e2e8f0;
+            margin-left: 15px;
+        }
+
+        .checkbox-item {
+            position: relative;
+            display: flex;
+            align-items: center;
+            background: #fff;
+            padding: 12px 16px;
+            border-radius: 10px;
+            cursor: pointer;
+            border: 2px solid #e2e8f0;
+            transition: all 0.2s;
+            font-size: 0.9rem;
+            font-weight: 500;
+            user-select: none;
+        }
+
+        .checkbox-item:hover {
+            border-color: var(--accent);
+            background: #f1f5f9;
+        }
+
+        .checkbox-item input {
+            width: 18px;
+            height: 18px;
+            margin-right: 12px;
+            cursor: pointer;
+            accent-color: var(--primary);
+        }
+
+        /* チェック時のスタイル */
+        .checkbox-item.active {
+            background: #eff6ff;
+            border-color: var(--primary);
+            color: var(--primary);
+            font-weight: 700;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.1);
+        }
+
+        /* 送信ボタン */
+        .btn-container {
+            text-align: center;
+            margin-top: 50px;
+            padding-bottom: 50px;
+        }
+
+        #sendBtn {
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            color: white;
+            padding: 22px 80px;
+            border: none;
+            border-radius: 100px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 10px 25px rgba(37, 99, 235, 0.3);
+        }
+
+        #sendBtn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(37, 99, 235, 0.4);
+            filter: brightness(1.1);
+        }
+
+        #sendBtn:active {
+            transform: translateY(-1px);
+        }
+
+        #sendBtn:disabled {
+            background: #cbd5e1;
+            box-shadow: none;
+            cursor: not-allowed;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--text-sub);
+            font-size: 0.85rem;
+            border-top: 1px solid #cbd5e1;
+            background: #f8fafc;
+        }
+
+        @media (max-width: 600px) {
+            .grid { grid-template-columns: 1fr; }
+            h1 { font-size: 1.8rem; }
+            .section { padding: 24px; }
+            #sendBtn { width: 100%; padding: 20px 0; }
+        }
     </style>
 </head>
 <body>
 
-<h1>AI Sales X | ターゲット・プロファイリング・シート</h1>
-<p>各項目を選択・入力し、最下部のボタンから条件を送信してください。</p>
+<div class="top-brand-bar">
+    Provided by Aipath
+</div>
+
+<div class="container">
+    <header>
+        <span class="service-tag">AI Sales X</span>
+        <h1>ターゲット・プロファイリング</h1>
+        <div class="description">
+            各項目を選択・入力し、最下部のボタンから送信してください。<BR>AIによる診断結果と営業リストを無料でご提供いたします。
+        </div>
+    </header>
 
 <form id="targetForm">
     <div class="section">
         <h2>基本情報</h2>
-        <div style="margin-bottom: 15px;">
-            <label>貴社名<span class="required">※必須</span></label>
+        <div class="form-group">
+            <label>貴社名<span class="required-tag">必須</span></label>
             <input type="text" name="companyName" class="input-field" placeholder="例：株式会社Aipath" required>
         </div>
-        <div>
-            <label>ご担当者名</label>
+        <div class="form-group">
+            <label>メールアドレス<span class="required-tag">必須</span></label>
+            <input type="email" name="email" class="input-field" placeholder="例：example@aipath.co.jp" required>
+        </div>
+        <div class="form-group">
+            <label>ご担当者名<span class="required-tag">必須</span></label>
             <input type="text" name="staffName" class="input-field" placeholder="例：山田 太郎">
         </div>
     </div>
@@ -43,7 +283,7 @@
     <div class="section">
         <h2>業種（複数選択可）</h2>
         <div class="grid">
-            <div class="sub-category">■ IT</div>
+            <div class="sub-category">IT</div>
             <label class="checkbox-item"><input type="checkbox" name="industry" value="ITコンサルティング">ITコンサルティング</label>
             <label class="checkbox-item"><input type="checkbox" name="industry" value="Web制作・メディア運営">Web制作・メディア運営</label>
             <label class="checkbox-item"><input type="checkbox" name="industry" value="ゲーム・エンタメテック">ゲーム・エンタメテック</label>
@@ -52,7 +292,7 @@
             <label class="checkbox-item"><input type="checkbox" name="industry" value="ハードウェア・IoT">ハードウェア・IoT</label>
             <label class="checkbox-item"><input type="checkbox" name="industry" value="通信・インフラ">通信・インフラ</label>
             
-            <div class="sub-category">■ サービス</div>
+            <div class="sub-category">サービス</div>
             <label class="checkbox-item"><input type="checkbox" name="industry" value="エンターテイメント">エンターテイメント</label>
             <label class="checkbox-item"><input type="checkbox" name="industry" value="コンサルティング">コンサルティング</label>
             <label class="checkbox-item"><input type="checkbox" name="industry" value="人材（派遣・紹介）">人材（派遣・紹介）</label>
@@ -65,37 +305,37 @@
             <label class="checkbox-item"><input type="checkbox" name="industry" value="美容・リラクゼーション">美容・リラクゼーション</label>
             <label class="checkbox-item"><input type="checkbox" name="industry" value="運輸・物流">運輸・物流</label>
 
-            <div class="sub-category">■ 不動産</div>
+            <div class="sub-category">不動産</div>
             <label class="checkbox-item"><input type="checkbox" name="industry" value="不動産仲介・売買">不動産仲介・売買</label>
             <label class="checkbox-item"><input type="checkbox" name="industry" value="不動産賃貸・管理">不動産賃貸・管理</label>
             <label class="checkbox-item"><input type="checkbox" name="industry" value="不動産開発・デベロッパー">不動産開発・デベロッパー</label>
 
-            <div class="sub-category">■ 医療・福祉</div>
+            <div class="sub-category">医療・福祉</div>
             <label class="checkbox-item"><input type="checkbox" name="industry" value="ヘルスケアサービス">ヘルスケアサービス</label>
             <label class="checkbox-item"><input type="checkbox" name="industry" value="介護・福祉施設">介護・福祉施設</label>
             <label class="checkbox-item"><input type="checkbox" name="industry" value="歯科">歯科</label>
             <label class="checkbox-item"><input type="checkbox" name="industry" value="病院・クリニック">病院・クリニック</label>
             <label class="checkbox-item"><input type="checkbox" name="industry" value="薬局・ドラッグストア">薬局・ドラッグストア</label>
 
-            <div class="sub-category">■ 小売・卸売</div>
+            <div class="sub-category">小売・卸売</div>
             <label class="checkbox-item"><input type="checkbox" name="industry" value="EC・通販">EC・通販</label>
             <label class="checkbox-item"><input type="checkbox" name="industry" value="卸売・商社">卸売・商社</label>
             <label class="checkbox-item"><input type="checkbox" name="industry" value="専門店（アパレル・家電・書店等）">専門店（アパレル・家電・書店等）</label>
             <label class="checkbox-item"><input type="checkbox" name="industry" value="総合小売（スーパー・百貨店）">総合小売（スーパー・百貨店）</label>
 
-            <div class="sub-category">■ 建設</div>
+            <div class="sub-category">建設</div>
             <label class="checkbox-item"><input type="checkbox" name="industry" value="土木・インフラ工事">土木・インフラ工事</label>
             <label class="checkbox-item"><input type="checkbox" name="industry" value="建築・リフォーム">建築・リフォーム</label>
             <label class="checkbox-item"><input type="checkbox" name="industry" value="建築設計・デザイン">建築設計・デザイン</label>
             <label class="checkbox-item"><input type="checkbox" name="industry" value="総合建設（ゼネコン）">総合建設（ゼネコン）</label>
             <label class="checkbox-item"><input type="checkbox" name="industry" value="設備工事（電気・空調・衛生）">設備工事（電気・空調・衛生）</label>
 
-            <div class="sub-category">■ 教育</div>
+            <div class="sub-category">教育</div>
             <label class="checkbox-item"><input type="checkbox" name="industry" value="学校・大学">学校・大学</label>
             <label class="checkbox-item"><input type="checkbox" name="industry" value="学習塾・予備校">学習塾・予備校</label>
             <label class="checkbox-item"><input type="checkbox" name="industry" value="研修・語学">研修・語学</label>
 
-            <div class="sub-category">■ 製造</div>
+            <div class="sub-category">製造</div>
             <label class="checkbox-item"><input type="checkbox" name="industry" value="アパレル・繊維">アパレル・繊維</label>
             <label class="checkbox-item"><input type="checkbox" name="industry" value="化学・素材・エネルギー">化学・素材・エネルギー</label>
             <label class="checkbox-item"><input type="checkbox" name="industry" value="医薬品・医療機器">医薬品・医療機器</label>
@@ -107,13 +347,13 @@
             <label class="checkbox-item"><input type="checkbox" name="industry" value="電子部品・半導体">電子部品・半導体</label>
             <label class="checkbox-item"><input type="checkbox" name="industry" value="食品・飲料">食品・飲料</label>
 
-            <div class="sub-category">■ 金融</div>
+            <div class="sub-category">金融</div>
             <label class="checkbox-item"><input type="checkbox" name="industry" value="その他金融（リース・クレジット）">その他金融（リース・クレジット）</label>
             <label class="checkbox-item"><input type="checkbox" name="industry" value="保険">保険</label>
             <label class="checkbox-item"><input type="checkbox" name="industry" value="投資・資産運用">投資・資産運用</label>
             <label class="checkbox-item"><input type="checkbox" name="industry" value="銀行・証券">銀行・証券</label>
 
-            <div class="sub-category">■ 飲食</div>
+            <div class="sub-category">飲食</div>
             <label class="checkbox-item"><input type="checkbox" name="industry" value="カフェ・喫茶店">カフェ・喫茶店</label>
             <label class="checkbox-item"><input type="checkbox" name="industry" value="ケータリング・デリバリー">ケータリング・デリバリー</label>
             <label class="checkbox-item"><input type="checkbox" name="industry" value="レストラン・専門料理店">レストラン・専門料理店</label>
@@ -122,13 +362,13 @@
     </div>
 
     <div class="section">
-        <h2>事業タグ・属性（複数選択可）</h2>
+        <h2>事業タグ・属性</h2>
         <div class="grid">
-            <div class="sub-category">■ ターゲット層</div>
+            <div class="sub-category">ターゲット層</div>
             <label class="checkbox-item"><input type="checkbox" name="tag" value="BtoB">BtoB</label>
             <label class="checkbox-item"><input type="checkbox" name="tag" value="BtoC">BtoC</label>
             
-            <div class="sub-category">■ 事業モデル</div>
+            <div class="sub-category">事業モデル</div>
             <label class="checkbox-item"><input type="checkbox" name="tag" value="EC">EC</label>
             <label class="checkbox-item"><input type="checkbox" name="tag" value="SaaS">SaaS</label>
             <label class="checkbox-item"><input type="checkbox" name="tag" value="サブスクリプション">サブスクリプション</label>
@@ -136,13 +376,13 @@
             <label class="checkbox-item"><input type="checkbox" name="tag" value="メーカー">メーカー</label>
             <label class="checkbox-item"><input type="checkbox" name="tag" value="商社">商社</label>
 
-            <div class="sub-category">■ 企業属性</div>
+            <div class="sub-category">企業属性</div>
             <label class="checkbox-item"><input type="checkbox" name="tag" value="スタートアップ・ベンチャー">スタートアップ・ベンチャー</label>
             <label class="checkbox-item"><input type="checkbox" name="tag" value="上場企業">上場企業</label>
             <label class="checkbox-item"><input type="checkbox" name="tag" value="中小企業">中小企業</label>
             <label class="checkbox-item"><input type="checkbox" name="tag" value="新設法人">新設法人</label>
 
-            <div class="sub-category">■ 提供形態</div>
+            <div class="sub-category">提供形態</div>
             <label class="checkbox-item"><input type="checkbox" name="tag" value="コンサルティング">コンサルティング</label>
             <label class="checkbox-item"><input type="checkbox" name="tag" value="システム開発">システム開発</label>
             <label class="checkbox-item"><input type="checkbox" name="tag" value="人材派遣">人材派遣</label>
@@ -154,46 +394,65 @@
 
     <div class="section">
         <h2>会社規模・詳細要件</h2>
-        <div style="margin-bottom: 15px;">
-            <label>資本金（例：1,000万円以上）</label>
+        <div class="form-group">
+            <label>資本金</label>
             <input type="text" name="capital" class="input-field" placeholder="例：1,000万円以上">
         </div>
-        <div style="margin-bottom: 15px;">
-            <label>従業員数（例：50名〜200名）</label>
+        <div class="form-group">
+            <label>従業員数</label>
             <input type="text" name="employees" class="input-field" placeholder="例：50名〜200名">
         </div>
-        <div style="margin-bottom: 15px;">
-            <label>設立年（例：2010年以降）</label>
+        <div class="form-group">
+            <label>設立年</label>
             <input type="text" name="established" class="input-field" placeholder="例：2010年以降">
         </div>
-        <div>
+        <div class="form-group">
             <label>フリーワード（定性的な要件、除外条件など）</label>
             <textarea name="freeword" class="input-field" rows="4" placeholder="例：●●の展示会に出展している企業、二次請けメインの企業は除外、など"></textarea>
         </div>
     </div>
 
     <div class="btn-container">
-        <button type="button" id="sendBtn">ターゲット条件を送信する</button>
+        <button type="button" id="sendBtn">診断を開始する（無料）</button>
     </div>
 </form>
+</div>
+
+<footer>
+    <p>© 株式会社Aipath - All Rights Reserved.</p>
+    <p style="margin-top: 8px; opacity: 0.8; font-size: 0.75rem;">ご入力いただいた情報は、診断結果の送付およびサービス向上のためにのみ利用いたします。</p>
+</footer>
 
 <script>
+    // チェックボックスのスタイリング制御
+    document.querySelectorAll('.checkbox-item input').forEach(input => {
+        input.addEventListener('change', function() {
+            if(this.checked) {
+                this.parentElement.classList.add('active');
+            } else {
+                this.parentElement.classList.remove('active');
+            }
+        });
+    });
+
     document.getElementById('sendBtn').addEventListener('click', async function() {
         const btn = this;
         const form = document.getElementById('targetForm');
         
         const companyName = form.querySelector('input[name="companyName"]').value;
-        if (!companyName) {
-            alert('貴社名を入力してください。');
+        const email = form.querySelector('input[name="email"]').value;
+        
+        if (!companyName || !email) {
+            alert('「貴社名」と「メールアドレス」は必須入力です。');
             return;
         }
 
         const formData = new FormData(form);
-        // ★ここに最新のデプロイURLを貼ってください
         const gasUrl = 'https://script.google.com/macros/s/AKfycbwgr3Dpon5HgeQ8R_edliE7WRa7SNn_HKAdnOIOQ7Sv4P1DJpb0kTT1ta4RVa3bC80F2g/exec';
 
         const payload = {
             companyName: formData.get('companyName'),
+            email: formData.get('email'),
             staffName: formData.get('staffName'),
             industries: Array.from(form.querySelectorAll('input[name="industry"]:checked')).map(el => el.value).join(' / '),
             tags: Array.from(form.querySelectorAll('input[name="tag"]:checked')).map(el => el.value).join(' / '),
@@ -204,10 +463,9 @@
         };
 
         btn.disabled = true;
-        btn.innerText = "送信中...";
+        btn.innerText = "データを解析中...";
 
         try {
-            // GASへの送信（Content-Typeをあえてtext/plainにすることでCORSを回避）
             await fetch(gasUrl, {
                 method: 'POST',
                 mode: 'no-cors',
@@ -215,15 +473,15 @@
                 body: JSON.stringify(payload)
             });
 
-            // no-corsの場合、成功したかどうか判定できないため、送信できれば良しとする
-            alert('データを送信しました。');
+            alert('正常に送信されました。株式会社Aipathのコンサルタント、およびAIによる診断を開始します。結果到着までお待ちください。');
             form.reset();
+            document.querySelectorAll('.checkbox-item').forEach(el => el.classList.remove('active'));
         } catch (error) {
             console.error('Error:', error);
-            alert('送信に失敗しました。');
+            alert('送信に失敗しました。時間をおいて再度お試しください。');
         } finally {
             btn.disabled = false;
-            btn.innerText = "ターゲット条件を送信する";
+            btn.innerText = "診断を開始する（無料）";
         }
     });
 </script>
