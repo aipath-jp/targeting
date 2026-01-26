@@ -3,680 +3,489 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>メタAIアドpro | 次世代のMeta広告運用代行</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>AI Sales X | ターゲット・プロファイリング</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #0062ff;
-            --accent: #7d2ae8;
-            --meta-gradient: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
-            --rainbow-gradient: linear-gradient(90deg, #4285F4, #9b51e0, #e95950, #fccc63, #4285F4);
-            --primary-gradient: linear-gradient(135deg, #0062ff 0%, #7d2ae8 100%);
-            --dark-bg: #05070a;
-            --text-main: #1d1d1f;
-            --text-sub: #636366;
-            --glass: rgba(255, 255, 255, 0.8);
-            --bg-light: #fbfbfd;
+            --primary: #2563eb;
+            --primary-dark: #1e40af;
+            --accent: #3b82f6;
+            --bg-gradient: linear-gradient(135deg, #f0f4f8 0%, #d9e2ec 100%);
+            --card-bg: #ffffff;
+            --text-main: #102a43;
+            --text-sub: #486581;
+            --border: #bcccdc;
         }
-
-        * { box-sizing: border-box; margin: 0; padding: 0; }
 
         body {
             font-family: 'Inter', 'Noto Sans JP', sans-serif;
+            background: var(--bg-gradient);
             color: var(--text-main);
-            line-height: 1.7;
-            overflow-x: hidden;
-            -webkit-font-smoothing: antialiased;
-            background: #fff;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
         }
 
-        /* --- Layout --- */
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
-        section { padding: 100px 0; }
-
-        /* --- Header --- */
-        header {
-            position: fixed;
-            top: 0; width: 100%; z-index: 1000;
-            backdrop-filter: blur(20px);
-            background: rgba(255, 255, 255, 0.7);
-            border-bottom: 1px solid rgba(0,0,0,0.05);
-        }
-        .nav-inner {
-            height: 70px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .logo {
-            font-size: 1.4rem;
-            font-weight: 900;
-            background: var(--primary-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            letter-spacing: -1px;
-        }
-
-        /* --- Buttons --- */
-        .btn {
-            padding: 14px 28px;
-            border-radius: 10px;
-            font-weight: 700;
-            transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            cursor: pointer;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            border: none;
-        }
-        .btn-primary {
-            background: var(--primary-gradient);
-            color: #fff;
-            box-shadow: 0 10px 20px rgba(0, 98, 255, 0.2);
-        }
-        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 15px 30px rgba(0, 98, 255, 0.3); }
-
-        /* --- Hero Section --- */
-        .hero {
-            position: relative;
-            padding: 180px 0 120px;
-            background: #fff;
-            overflow: hidden;
-            text-align: center;
-        }
-
-        .hero-bg-visual {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            z-index: 0;
-            pointer-events: none;
-        }
-        .glow-ball {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(80px);
-            opacity: 0.15;
-            animation: move 20s infinite alternate;
-        }
-        .ball-1 { width: 400px; height: 400px; background: #0062ff; top: -100px; right: -50px; }
-        .ball-2 { width: 500px; height: 500px; background: #bc1888; bottom: -150px; left: -100px; animation-delay: -5s; }
-        .ball-3 { width: 300px; height: 300px; background: #fccc63; top: 20%; left: 10%; opacity: 0.1; }
-
-        @keyframes move {
-            from { transform: translate(0, 0); }
-            to { transform: translate(50px, 100px); }
-        }
-
-        .hero-content { position: relative; z-index: 1; }
-
-        .hero-badge {
-            display: inline-block;
-            padding: 8px 16px;
-            background: rgba(0,0,0,0.05);
-            border-radius: 100px;
-            font-size: 0.85rem;
-            font-weight: 700;
-            margin-bottom: 32px;
+        /* 信頼性を示すヘッダーバー */
+        .top-brand-bar {
+            background: #102a43;
+            color: white;
+            padding: 8px 20px;
+            font-size: 0.75rem;
+            text-align: right;
             letter-spacing: 0.05em;
         }
 
-        .rainbow-text {
-            font-size: clamp(2.8rem, 8vw, 5rem);
-            font-weight: 900;
-            line-height: 1.1;
-            letter-spacing: -0.03em;
-            margin-bottom: 32px;
-            background: var(--rainbow-gradient);
-            background-size: 200% auto;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: rainbow-flow 5s linear infinite;
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 0 20px;
         }
 
-        @keyframes rainbow-flow {
-            to { background-position: 200% center; }
+        header {
+            text-align: center;
+            margin-bottom: 48px;
         }
 
-        .hero p {
-            font-size: clamp(1rem, 2.5vw, 1.25rem);
+        .service-tag {
+            background: var(--primary);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            display: inline-block;
+            margin-bottom: 16px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin: 0 0 16px 0;
+            color: #102a43;
+        }
+
+        .description {
+            font-size: 1.1rem;
             color: var(--text-sub);
-            max-width: 750px;
-            margin: 0 auto 48px;
-            font-weight: 400;
+            max-width: 650px;
+            margin: 0 auto;
         }
 
-        /* --- Responsive Utilities --- */
-        .md\:hidden { display: none; }
+        /* セクション・カード */
+        .section {
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 20px;
+            margin-bottom: 32px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+        }
 
-        /* --- Grid & Cards --- */
-        .special-grid {
+        h2 {
+            font-size: 1.4rem;
+            display: flex;
+            align-items: center;
+            margin-top: 0;
+            margin-bottom: 30px;
+            color: var(--text-main);
+            border-left: 5px solid var(--primary);
+            padding-left: 15px;
+        }
+
+        /* フォーム要素 */
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        label {
+            display: block;
+            font-weight: 700;
+            margin-bottom: 10px;
+            font-size: 0.95rem;
+        }
+
+        .required-tag {
+            background: #ff4d4f;
+            color: white;
+            font-size: 0.65rem;
+            padding: 2px 8px;
+            border-radius: 4px;
+            margin-left: 10px;
+            vertical-align: middle;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 14px 18px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s;
+            box-sizing: border-box;
+            background: #f8fafc;
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: var(--primary);
+            background: #fff;
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+        }
+
+        /* グリッド選択UIの強化 */
+        .grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 60px;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 12px;
+        }
+
+        .sub-category {
+            grid-column: 1 / -1;
+            font-size: 0.9rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin: 25px 0 10px 0;
+            display: flex;
             align-items: center;
         }
-        .f-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
+        .sub-category::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: #e2e8f0;
+            margin-left: 15px;
         }
-        .f-card {
-            padding: 40px;
-            border-radius: 24px;
-            background: var(--bg-light);
-            border: 1px solid #efeff4;
-            transition: 0.3s;
-        }
-        .f-card:hover { border-color: var(--primary); background: #fff; box-shadow: 0 20px 40px rgba(0,0,0,0.05); }
-        .f-card i { font-size: 2rem; color: var(--primary); margin-bottom: 20px; }
 
-        /* --- Pricing Table --- */
-        .pricing-box {
+        .checkbox-item {
+            position: relative;
+            display: flex;
+            align-items: center;
             background: #fff;
-            border-radius: 30px;
-            border: 1px solid #f2f2f7;
-            overflow: hidden;
-            box-shadow: 0 30px 60px rgba(0,0,0,0.05);
-        }
-        .pricing-table { width: 100%; border-collapse: collapse; }
-        .pricing-table th, .pricing-table td { padding: 25px; border-bottom: 1px solid #f2f2f7; text-align: left; }
-        .pricing-table th { background: #fbfbfd; font-size: 0.9rem; color: var(--text-sub); }
-        .highlight-col { background: rgba(0, 98, 255, 0.03); color: var(--primary); font-weight: bold; }
-
-        .formula-card {
-            background: #f8faff;
-            border: 1px dashed var(--primary);
-            border-radius: 12px;
-            padding: 20px;
-            margin-top: 15px;
-            font-family: 'Inter', sans-serif;
+            padding: 12px 16px;
+            border-radius: 10px;
+            cursor: pointer;
+            border: 2px solid #e2e8f0;
+            transition: all 0.2s;
+            font-size: 0.9rem;
+            font-weight: 500;
+            user-select: none;
         }
 
-        /* --- Contact --- */
-        .contact-section {
-            background: var(--dark-bg);
-            border-radius: 40px;
-            padding: 80px 40px;
-            color: #fff;
-        }
-        .form-container {
-            max-width: 800px;
-            margin: 40px auto 0;
-            background: #fff;
-            border-radius: 24px;
-            padding: 8px;
-            min-height: 500px;
+        .checkbox-item:hover {
+            border-color: var(--accent);
+            background: #f1f5f9;
         }
 
-        /* --- Footer --- */
-        footer { padding: 60px 0; border-top: 1px solid #f2f2f7; font-size: 0.85rem; color: var(--text-sub); }
+        .checkbox-item input {
+            width: 18px;
+            height: 18px;
+            margin-right: 12px;
+            cursor: pointer;
+            accent-color: var(--primary);
+        }
 
-        /* --- Animations --- */
-        [data-aos] { opacity: 0; transform: translateY(30px); transition: 1s cubic-bezier(0.2, 0.8, 0.2, 1); }
-        [data-aos].active { opacity: 1; transform: translateY(0); }
+        /* チェック時のスタイル */
+        .checkbox-item.active {
+            background: #eff6ff;
+            border-color: var(--primary);
+            color: var(--primary);
+            font-weight: 700;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.1);
+        }
 
-        /* --- Mobile Responsive --- */
-        @media (max-width: 768px) {
-            .md\:hidden { display: inline; }
-            .container { padding: 0 20px; }
-            section { padding: 60px 0; }
-            .hero { padding: 120px 0 60px; }
-            .special-grid { grid-template-columns: 1fr; gap: 40px; }
-            .f-grid { grid-template-columns: 1fr; gap: 20px; }
-            .pricing-table th, .pricing-table td { padding: 16px 12px; font-size: 0.85rem; }
+        /* 送信ボタン */
+        .btn-container {
+            text-align: center;
+            margin-top: 50px;
+            padding-bottom: 50px;
+        }
+
+        #sendBtn {
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            color: white;
+            padding: 22px 80px;
+            border: none;
+            border-radius: 100px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 10px 25px rgba(37, 99, 235, 0.3);
+        }
+
+        #sendBtn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(37, 99, 235, 0.4);
+            filter: brightness(1.1);
+        }
+
+        #sendBtn:active {
+            transform: translateY(-1px);
+        }
+
+        #sendBtn:disabled {
+            background: #cbd5e1;
+            box-shadow: none;
+            cursor: not-allowed;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--text-sub);
+            font-size: 0.85rem;
+            border-top: 1px solid #cbd5e1;
+            background: #f8fafc;
+        }
+
+        @media (max-width: 600px) {
+            .grid { grid-template-columns: 1fr; }
+            h1 { font-size: 1.8rem; }
+            .section { padding: 24px; }
+            #sendBtn { width: 100%; padding: 20px 0; }
         }
     </style>
 </head>
 <body>
 
+<div class="top-brand-bar">
+    Provided by Aipath
+</div>
+
+<div class="container">
     <header>
-        <div class="container nav-inner">
-            <div class="logo">Meta-ADX</div>
-            <nav style="display: flex; gap: 32px; align-items: center;">
-                <a href="#features" style="font-weight: 500; color: var(--text-main); font-size: 0.9rem; text-decoration: none;">特徴</a>
-                <a href="#pricing" style="font-weight: 500; color: var(--text-main); font-size: 0.9rem; text-decoration: none;">料金</a>
-                <a href="#contact" class="btn btn-primary" style="padding: 10px 24px; font-size: 0.85rem;">無料診断をはじめる</a>
-            </nav>
+        <span class="service-tag">AI Sales X</span>
+        <h1>ターゲット・プロファイリング</h1>
+        <div class="description">
+            各項目を選択・入力し、最下部のボタンから送信してください。<BR>AIによる診断結果と営業リストを無料でご提供いたします。
         </div>
     </header>
 
-    <main>
-        <section class="hero">
-            <div class="hero-bg-visual">
-                <div class="glow-ball ball-1"></div>
-                <div class="glow-ball ball-2"></div>
-                <div class="glow-ball ball-3"></div>
-            </div>
-            
-            <div class="container hero-content">
-                <div class="hero-badge" data-aos>Next Gen Ads Management</div>
-                <h1 class="rainbow-text" data-aos>
-                    AIとビッグデータで<br>Meta広告を<br class="md:hidden">再定義する。
-                </h1>
-                <p data-aos>
-                    クリエイティブの限界をAIが突破。業界初、CPCとクリック率に連動した透明性の高い成果報酬プランで、リスクを最小化。
-                </p>
-                <div class="btn-container" data-aos style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
-                    <a href="#contact" class="btn btn-primary" style="background: var(--meta-gradient);">
-                        無料でシミュレーション
-                    </a>
-                    <a href="#features" class="btn" style="background: #f2f2f7; color: var(--text-main);">サービス詳細を見る</a>
-                </div>
-            </div>
-        </section>
-        
-        <section id="features" style="background: var(--bg-light);">
-            <div class="container">
-                <div class="special-grid">
-                    <div data-aos>
-                        <span style="color: var(--primary); font-weight: bold; font-size: clamp(0.8rem, 2vw, 0.9rem);">The Power of Specialization</span>
-                        <h2 style="font-size: clamp(1.6rem, 5vw, 2.2rem); font-weight: 800; margin: 15px 0;">なぜMeta広告「だけ」なのか</h2>
-                        
-                        <div style="margin-bottom: 30px;">
-                            <p style="color: var(--text-main); font-weight: 700; margin-bottom: 12px; font-size: 1.1rem; border-left: 4px solid var(--primary); padding-left: 15px;">
-                                AIの普及が広告のパワーバランスを変える
-                            </p>
-                            <p style="color: var(--text-sub); font-size: 0.95rem; margin-bottom: 15px;">
-                                従来のGoogleやYahoo!といった「検索型広告」は、AIの普及によりSEOや検索行動そのものが変質し、その機能が劇的に低下しています。
-                            </p>
-                            
-                        </div>
-
-                        <div style="display: grid; gap: 20px;">
-                            <div style="display: flex; gap: 15px;">
-                                <i class="fa-solid fa-circle-check" style="color: var(--primary); margin-top: 5px; font-size: 1.2rem;"></i>
-                                <div>
-                                    <strong style="font-size: clamp(0.95rem, 2vw, 1rem);">脱・検索へのシフト</strong>
-                                    <p style="font-size: clamp(0.8rem, 2vw, 0.85rem); color: var(--text-sub);">SEOに依存せず、AIがユーザーの個人データから購入意欲を先読み。</p>
-                                </div>
-                            </div>
-                            <div style="display: flex; gap: 15px;">
-                                <i class="fa-solid fa-circle-check" style="color: var(--primary); margin-top: 5px; font-size: 1.2rem;"></i>
-                                <div>
-                                    <strong style="font-size: clamp(0.95rem, 2vw, 1rem);">Meta AIとの完全同調</strong>
-                                    <p style="font-size: clamp(0.8rem, 2vw, 0.85rem); color: var(--text-sub);">Meta独自のAI「Llama」ベースの学習モデルに沿った最適な運用を追求。</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div data-aos style="background: #fff; padding: 50px; border-radius: 30px; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.03); position: relative;">
-                        <div style="margin-bottom: 30px;">
-                            <span style="font-size: 0.8rem; background: #ffebeb; color: #ff3b30; padding: 4px 12px; border-radius: 100px; font-weight: bold; margin-bottom: 10px; display: inline-block;">AI時代の新常識</span>
-                            <div style="display: flex; justify-content: center; align-items: center; gap: 15px; margin-top: 10px;">
-                                <div style="text-align: center; opacity: 0.4; filter: grayscale(1);">
-                                    <i class="fa-brands fa-google" style="font-size: 2rem;"></i>
-                                    <div style="font-size: 0.7rem; font-weight: bold;">Search</div>
-                                </div>
-                                <div style="font-size: 1.5rem; color: #ccc;">→</div>
-                                <div style="text-align: center;">
-                                    <i class="fa-brands fa-instagram" style="font-size: 3.5rem; background: var(--meta-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;"></i>
-                                    <div style="font-size: 0.8rem; font-weight: bold; color: var(--text-main);">Interest-Driven</div>
-                                </div>
-                            </div>
-                        </div>
-                        <h3 style="margin-top: 25px; font-size: clamp(1.1rem, 3vw, 1.3rem);">Meta Algorithm Masters</h3>
-                        <p style="font-size: clamp(0.85rem, 2vw, 0.9rem); color: var(--text-sub); margin-top: 10px;">
-                            検索しなくなっても、SNSは変わらず見られる<br>私たちはその一点において
-                            最高の運用を目指します。
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="pricing">
-            <div class="container">
-                <div style="text-align: center; margin-bottom: 50px;">
-                    <h2 style="font-size: clamp(1.6rem, 5vw, 2.2rem); font-weight: 800;">成果にフェアな報酬体系</h2>
-                    <p style="color: var(--text-sub); font-size: clamp(0.9rem, 2vw, 1rem);">広告主様の利益を最大化するため、独自の計算式を採用しています。</p>
-                </div>
-                <div class="pricing-box" data-aos>
-                    <table class="pricing-table">
-                        <thead>
-                            <tr>
-                                <th>項目</th>
-                                <th class="highlight-col">Meta-ADX ハイブリッド型</th>
-                                <th>一般的な代理店</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>初期費用</td>
-                                <td class="highlight-col">¥0</td>
-                                <td>¥50,000〜</td>
-                            </tr>
-                            <tr>
-                                <td>運用手数料（月額）</td>
-                                <td class="highlight-col">
-                                    <div>下記計算式による成果報酬</div>
-                                    <div class="formula-card">
-                                        <div style="font-size: 0.8rem; color: var(--text-sub); margin-bottom: 5px;">【報酬計算式】</div>
-                                        <div style="font-weight: 900; color: var(--text-main);">クリック率 × 100 × 1万円 × (100 / CPC)</div>
-                                    </div>
-                                    <div style="font-size: 0.8rem; color: var(--text-sub); margin-top: 10px;">
-                                        ※CTRが低く、CPCが高いほど報酬が抑えられる設計です。
-                                    </div>
-                                </td>
-                                <td>広告費の20%固定</td>
-                            </tr>
-                            <tr>
-                                <td>報酬上限</td>
-                                <td class="highlight-col">
-                                    <strong>最大20万円</strong><br>
-                                    <span style="font-size: 0.85rem; font-weight: normal;">※20万円 もしくは 広告予算(100%) のうち、<strong>安い方が適用</strong>されます。</span>
-                                </td>
-                                <td>なし（青天井）</td>
-                            </tr>
-                            <tr>
-                                <td>クリエイティブ制作</td>
-                                <td class="highlight-col">無制限（AI生成込）</td>
-                                <td>別途費用が発生</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-           
-            </div>
-            <div style="margin-top: 80px; background: #f8faff; border-radius: 40px; padding: 60px 40px;">
-    <div style="text-align: center; margin-bottom: 40px;">
-        <span style="color: var(--primary); font-weight: bold; font-size: 0.9rem;">Win-Win Philosophy</span>
-        <h3 style="font-size: clamp(1.4rem, 4vw, 2rem); font-weight: 800; margin-top: 10px;">
-            広告主様が「損」をしている時に、<br class="md:hidden">私たちは利益をいただきません。
-        </h3>
-    </div>
-
-    <div class="f-grid">
-        <div style="background: #fff; padding: 30px; border-radius: 20px; border: 1px solid #e2e2e7;">
-            <div style="color: #ff3b30; font-weight: 900; margin-bottom: 15px; display: flex; align-items: center; gap: 8px;">
-                <i class="fa-solid fa-triangle-exclamation"></i> 運用効率が悪い時
-            </div>
-            <p style="font-size: 0.9rem; color: var(--text-sub); margin-bottom: 15px;">
-                「クリックされない(低CTR)」「単価が高い(高CPC)」という、広告主様にとって苦しい状況では、<strong>計算式により私たちの報酬も自動的に下がります。</strong>
-            </p>
-            <div style="font-size: 0.85rem; font-weight: 700; color: var(--text-main); background: #fff5f5; padding: 10px; border-radius: 8px;">
-                代理店も「痛み」を共有し、改善に必死になる仕組みです。
-            </div>
+<form id="targetForm">
+    <div class="section">
+        <h2>基本情報</h2>
+        <div class="form-group">
+            <label>貴社名<span class="required-tag">必須</span></label>
+            <input type="text" name="companyName" class="input-field" placeholder="例：株式会社Aipath" required>
         </div>
-
-        <div style="background: #fff; padding: 30px; border-radius: 20px; border: 1px solid var(--primary);">
-            <div style="color: var(--primary); font-weight: 900; margin-bottom: 15px; display: flex; align-items: center; gap: 8px;">
-                <i class="fa-solid fa-rocket"></i> 運用効率が良い時
-            </div>
-            <p style="font-size: 0.9rem; color: var(--text-sub); margin-bottom: 15px;">
-                「安く(低CPC)」「大量に集客(高CTR)」でき、広告主様の<strong>資金効率が最大化されてはじめて、私たちの報酬も適正に上昇します。</strong>
-            </p>
-            <div style="font-size: 0.85rem; font-weight: 700; color: var(--primary); background: #f0f7ff; padding: 10px; border-radius: 8px;">
-                生み出した「余剰利益」の中から報酬をいただく、成功報酬の理想形。
-            </div>
+        <div class="form-group">
+            <label>メールアドレス<span class="required-tag">必須</span></label>
+            <input type="email" name="email" class="input-field" placeholder="例：example@aipath.co.jp" required>
+        </div>
+        <div class="form-group">
+            <label>ご担当者名<span class="required-tag">必須</span></label>
+            <input type="text" name="staffName" class="input-field" placeholder="例：山田 太郎">
         </div>
     </div>
 
-    <div style="margin-top: 40px; text-align: center;">
-        <p style="font-size: 1rem; color: var(--text-main); line-height: 1.8;">
-            従来の「広告費が増えるほど代理店が儲かる」仕組みではなく、<br>
-            <strong>「運用を磨くほど両者が潤う」</strong>真のパートナーシップを目指しています。
-        </p>
+    <div class="section">
+        <h2>業種（複数選択可）</h2>
+        <div class="grid">
+            <div class="sub-category">IT</div>
+            <label class="checkbox-item"><input type="checkbox" name="industry" value="ITコンサルティング">ITコンサルティング</label>
+            <label class="checkbox-item"><input type="checkbox" name="industry" value="Web制作・メディア運営">Web制作・メディア運営</label>
+            <label class="checkbox-item"><input type="checkbox" name="industry" value="ゲーム・エンタメテック">ゲーム・エンタメテック</label>
+            <label class="checkbox-item"><input type="checkbox" name="industry" value="システムインテグレーション（SI）">システムインテグレーション（SI）</label>
+            <label class="checkbox-item"><input type="checkbox" name="industry" value="ソフトウェア開発・SaaS">ソフトウェア開発・SaaS</label>
+            <label class="checkbox-item"><input type="checkbox" name="industry" value="ハードウェア・IoT">ハードウェア・IoT</label>
+            <label class="checkbox-item"><input type="checkbox" name="industry" value="通信・インフラ">通信・インフラ</label>
+
+            <div class="sub-category">サービス</div>
+            <label class="checkbox-item"><input type="checkbox" name="industry" value="エンターテイメント">エンターテイメント</label>
+            <label class="checkbox-item"><input type="checkbox" name="industry" value="コンサルティング">コンサルティング</label>
+            <label class="checkbox-item"><input type="checkbox" name="industry" value="人材（派遣・紹介）">人材（派遣・紹介）</label>
+            <label class="checkbox-item"><input type="checkbox" name="industry" value="冠婚葬祭・イベント">冠婚葬祭・イベント</label>
+            <label class="checkbox-item"><input type="checkbox" name="industry" value="専門サービス（士業）">専門サービス（士業）</label>
+            <label class="checkbox-item"><input type="checkbox" name="industry" value="広告・マーケティング">広告・マーケティング</label>
+            <label class="checkbox-item"><input type="checkbox" name="industry" value="施設管理・清掃">施設管理・清掃</label>
+            <label class="checkbox-item"><input type="checkbox" name="industry" value="旅行・宿泊">旅行・宿泊</label>
+            <label class="checkbox-item"><input type="checkbox" name="industry" value="環境・リサイクル">環境・リサイクル</label>
+            <label class="checkbox-item"><input type="checkbox" name="industry" value="美容・リラクゼーション">美容・リラクゼーション</label>
+            <label class="checkbox-item"><input type="checkbox" name="industry" value="運輸・物流">運輸・物流</label>
+
+            <div class="sub-category">不動産</div>
+            <label class="checkbox-item"><input type="checkbox" name="industry" value="不動産仲介・売買">不動産仲介・売買</label>
+            <label class="checkbox-item"><input type="checkbox" name="industry" value="不動産賃貸・管理">不動産賃貸・管理</label>
+            <label class="checkbox-item"><input type="checkbox" name="industry" value="不動産開発・デベロッパー">不動産開発・デベロッパー</label>
+
+            <div class="sub-category">医療・福祉</div>
+            <label class="checkbox-item"><input type="checkbox" name="industry" value="ヘルスケアサービス">ヘルスケアサービス</label>
+            <label class="checkbox-item"><input type="checkbox" name="industry" value="介護・福祉施設">介護・福祉施設</label>
+            <label class="checkbox-item"><input type="checkbox" name="industry" value="歯科">歯科</label>
+            <label class="checkbox-item"><input type="checkbox" name="industry" value="病院・クリニック">病院・クリニック</label>
+            <label class="checkbox-item"><input type="checkbox" name="industry" value="薬局・ドラッグストア">薬局・ドラッグストア</label>
+
+            <div class="sub-category">小売・卸売</div>
+            <label class="checkbox-item"><input type="checkbox" name="industry" value="EC・通販">EC・通販</label>
+            <label class="checkbox-item"><input type="checkbox" name="industry" value="卸売・商社">卸売・商社</label>
+            <label class="checkbox-item"><input type="checkbox" name="industry" value="専門店（アパレル・家電・書店等）">専門店（アパレル・家電・書店等）</label>
+            <label class="checkbox-item"><input type="checkbox" name="industry" value="総合小売（スーパー・百貨店）">総合小売（スーパー・百貨店）</label>
+
+            <div class="sub-category">建設</div>
+            <label class="checkbox-item"><input type="checkbox" name="industry" value="土木・インフラ工事">土木・インフラ工事</label>
+            <label class="checkbox-item"><input type="checkbox" name="industry" value="建築・リフォーム">建築・リフォーム</label>
+            <label class="checkbox-item"><input type="checkbox" name="industry" value="建築設計・デザイン">建築設計・デザイン</label>
+            <label class="checkbox-item"><input type="checkbox" name="industry" value="総合建設（ゼネコン）">総合建設（ゼネコン）</label>
+            <label class="checkbox-item"><input type="checkbox" name="industry" value="設備工事（電気・空調・衛生）">設備工事（電気・空調・衛生）</label>
+
+            <div class="sub-category">教育</div>
+            <label class="checkbox-item"><input type="checkbox" name="industry" value="学校・大学">学校・大学</label>
+            <label class="checkbox-item"><input type="checkbox" name="industry" value="学習塾・予備校">学習塾・予備校</label>
+            <label class="checkbox-item"><input type="checkbox" name="industry" value="研修・語学">研修・語学</label>
+
+            <div class="sub-category">製造</div>
+            <label class="checkbox-item"><input type="checkbox" name="industry" value="アパレル・繊維">アパレル・繊維</label>
+            <label class="checkbox-item"><input type="checkbox" name="industry" value="化学・素材・エネルギー">化学・素材・エネルギー</label>
+            <label class="checkbox-item"><input type="checkbox" name="industry" value="医薬品・医療機器">医薬品・医療機器</label>
+            <label class="checkbox-item"><input type="checkbox" name="industry" value="建築資材">建築資材</label>
+            <label class="checkbox-item"><input type="checkbox" name="industry" value="機械・設備">機械・設備</label>
+            <label class="checkbox-item"><input type="checkbox" name="industry" value="生活用品・雑貨">生活用品・雑貨</label>
+            <label class="checkbox-item"><input type="checkbox" name="industry" value="自動車・輸送機器">自動車・輸送機器</label>
+            <label class="checkbox-item"><input type="checkbox" name="industry" value="金属製品">金属製品</label>
+            <label class="checkbox-item"><input type="checkbox" name="industry" value="電子部品・半導体">電子部品・半導体</label>
+            <label class="checkbox-item"><input type="checkbox" name="industry" value="食品・飲料">食品・飲料</label>
+
+            <div class="sub-category">金融</div>
+            <label class="checkbox-item"><input type="checkbox" name="industry" value="その他金融（リース・クレジット）">その他金融（リース・クレジット）</label>
+            <label class="checkbox-item"><input type="checkbox" name="industry" value="保険">保険</label>
+            <label class="checkbox-item"><input type="checkbox" name="industry" value="投資・資産運用">投資・資産運用</label>
+            <label class="checkbox-item"><input type="checkbox" name="industry" value="銀行・証券">銀行・証券</label>
+
+            <div class="sub-category">飲食</div>
+            <label class="checkbox-item"><input type="checkbox" name="industry" value="カフェ・喫茶店">カフェ・喫茶店</label>
+            <label class="checkbox-item"><input type="checkbox" name="industry" value="ケータリング・デリバリー">ケータリング・デリバリー</label>
+            <label class="checkbox-item"><input type="checkbox" name="industry" value="レストラン・専門料理店">レストラン・専門料理店</label>
+            <label class="checkbox-item"><input type="checkbox" name="industry" value="居酒屋・バー">居酒屋・バー</label>
+        </div>
     </div>
+
+    <div class="section">
+        <h2>事業タグ・属性</h2>
+        <div class="grid">
+            <div class="sub-category">ターゲット層</div>
+            <label class="checkbox-item"><input type="checkbox" name="tag" value="BtoB">BtoB</label>
+            <label class="checkbox-item"><input type="checkbox" name="tag" value="BtoC">BtoC</label>
+
+            <div class="sub-category">事業モデル</div>
+            <label class="checkbox-item"><input type="checkbox" name="tag" value="EC">EC</label>
+            <label class="checkbox-item"><input type="checkbox" name="tag" value="SaaS">SaaS</label>
+            <label class="checkbox-item"><input type="checkbox" name="tag" value="サブスクリプション">サブスクリプション</label>
+            <label class="checkbox-item"><input type="checkbox" name="tag" value="プラットフォーム">プラットフォーム</label>
+            <label class="checkbox-item"><input type="checkbox" name="tag" value="メーカー">メーカー</label>
+            <label class="checkbox-item"><input type="checkbox" name="tag" value="商社">商社</label>
+
+            <div class="sub-category">企業属性</div>
+            <label class="checkbox-item"><input type="checkbox" name="tag" value="スタートアップ・ベンチャー">スタートアップ・ベンチャー</label>
+            <label class="checkbox-item"><input type="checkbox" name="tag" value="上場企業">上場企業</label>
+            <label class="checkbox-item"><input type="checkbox" name="tag" value="中小企業">中小企業</label>
+            <label class="checkbox-item"><input type="checkbox" name="tag" value="新設法人">新設法人</label>
+
+            <div class="sub-category">提供形態</div>
+            <label class="checkbox-item"><input type="checkbox" name="tag" value="コンサルティング">コンサルティング</label>
+            <label class="checkbox-item"><input type="checkbox" name="tag" value="システム開発">システム開発</label>
+            <label class="checkbox-item"><input type="checkbox" name="tag" value="人材派遣">人材派遣</label>
+            <label class="checkbox-item"><input type="checkbox" name="tag" value="人材紹介">人材紹介</label>
+            <label class="checkbox-item"><input type="checkbox" name="tag" value="受託開発">受託開発</label>
+            <label class="checkbox-item"><input type="checkbox" name="tag" value="運営代行">運営代行</label>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>会社規模・詳細要件</h2>
+        <div class="form-group">
+            <label>資本金</label>
+            <input type="text" name="capital" class="input-field" placeholder="例：1,000万円以上">
+        </div>
+        <div class="form-group">
+            <label>従業員数</label>
+            <input type="text" name="employees" class="input-field" placeholder="例：50名〜200名">
+        </div>
+        <div class="form-group">
+            <label>設立年</label>
+            <input type="text" name="established" class="input-field" placeholder="例：2010年以降">
+        </div>
+        <div class="form-group">
+            <label>フリーワード（定性的な要件、除外条件など）</label>
+            <textarea name="freeword" class="input-field" rows="4" placeholder="例：●●の展示会に出展している企業、二次請けメインの企業は除外、など"></textarea>
+        </div>
+    </div>
+
+    <div class="btn-container">
+        <button type="button" id="sendBtn">診断を開始する（無料）</button>
+    </div>
+</form>
 </div>
-        </section>
-        
-        
-        <section id="simulator" style="background: #fff; padding-top: 0;">
-    <div class="container">
-        <div style="max-width: 700px; margin: 0 auto; background: #fff; border: 2px solid var(--primary); border-radius: 30px; padding: 40px; box-shadow: 0 20px 40px rgba(0,98,255,0.1);">
-            <div style="text-align: center; margin-bottom: 30px;">
-                <h3 style="font-size: 1.5rem; font-weight: 800; color: var(--primary);">報酬シミュレーター</h3>
-                <p style="font-size: 0.9rem; color: var(--text-sub);">想定の数値を入力して、月額費用を確認できます</p>
-            </div>
 
-            <div style="display: grid; gap: 20px;">
-                <div>
-                    <label style="display: block; font-size: 0.85rem; font-weight: 700; margin-bottom: 8px;">想定月間広告予算 (円)</label>
-                    <input type="number" id="input_budget" value="300000" step="10000" style="width: 100%; padding: 12px; border: 1px solid #e2e2e7; border-radius: 8px; font-size: 1rem;">
-                </div>
-                
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
-                    <div>
-                        <label style="display: block; font-size: 0.85rem; font-weight: 700; margin-bottom: 8px;">想定クリック率 (平均1~1.5%)</label>
-                        <input type="number" id="input_ctr" value="1.5" step="0.1" style="width: 100%; padding: 12px; border: 1px solid #e2e2e7; border-radius: 8px; font-size: 1rem;">
-                    </div>
-                    <div>
-                        <label style="display: block; font-size: 0.85rem; font-weight: 700; margin-bottom: 8px;">想定CPC (平均80~150円)</label>
-                        <input type="number" id="input_cpc" value="80" style="width: 100%; padding: 12px; border: 1px solid #e2e2e7; border-radius: 8px; font-size: 1rem;">
-                    </div>
-                </div>
-
-                <hr style="border: none; border-top: 1px solid #eee; margin: 10px 0;">
-
-                <div style="background: var(--bg-light); border-radius: 16px; padding: 20px; text-align: center;">
-                    <div style="font-size: 0.9rem; color: var(--text-sub); margin-bottom: 10px;">概算月額運用報酬</div>
-                    <div style="display: flex; align-items: baseline; justify-content: center; gap: 4px;">
-                        <span style="font-size: 0.9rem; font-weight: 700;">¥</span>
-                        <span id="result_fee" style="font-size: 2.5rem; font-weight: 900; color: var(--primary);">0</span>
-                    </div>
-                    <div id="status_msg" style="font-size: 0.8rem; color: var(--accent); margin-top: 5px; font-weight: 700; height: 1.2em;"></div>
-                </div>
-                
-                <p style="font-size: 0.75rem; color: #999; line-height: 1.4;">
-                    ※計算式：CTR × 100 × 1万円 × (100 / CPC)<br>
-                    ※上限ルール：20万円、または広告予算の100%のいずれか安い方を適用。
-                </p>
-            </div>
-        </div>
-    </div>
-</section>
+<footer>
+    <p>© 株式会社Aipath - All Rights Reserved.</p>
+    <p style="margin-top: 8px; opacity: 0.8; font-size: 0.75rem;">ご入力いただいた情報は、診断結果の送付およびサービス向上のためにのみ利用いたします。</p>
+</footer>
 
 <script>
-    function calculateFee() {
-    const budget = parseFloat(document.getElementById('input_budget').value) || 0;
-    const ctr = parseFloat(document.getElementById('input_ctr').value) || 0; // 3%なら「3」が入る
-    const cpc = parseFloat(document.getElementById('input_cpc').value) || 0;
-    
-    const resultEl = document.getElementById('result_fee');
-    const msgEl = document.getElementById('status_msg');
-
-    if (cpc <= 0 || ctr <= 0) {
-        resultEl.innerText = "0";
-        return;
-    }
-
-    // 正しい計算ロジック：
-    // CTR 3% の場合、 3 × 1万円 × (100 / CPC)
-    let rawFee = ctr * 10000 * (100 / cpc);
-    
-    // 上限ルールの適用
-    const limit20 = 200000;
-    const limitBudget = budget;
-    const activeLimit = Math.min(limit20, limitBudget);
-
-    let finalFee = rawFee;
-    let msg = "";
-
-    if (rawFee >= activeLimit) {
-        finalFee = activeLimit;
-        msg = activeLimit === limit20 ? "【上限20万円を適用中】" : "【ご予算上限(100%)を適用中】";
-    }
-
-    resultEl.innerText = Math.floor(finalFee).toLocaleString();
-    msgEl.innerText = msg;
-}
-
-    // 入力イベントに紐付け
-    ['input_budget', 'input_ctr', 'input_cpc'].forEach(id => {
-        document.getElementById(id).addEventListener('input', calculateFee);
+    // チェックボックスのスタイリング制御
+    document.querySelectorAll('.checkbox-item input').forEach(input => {
+        input.addEventListener('change', function() {
+            if(this.checked) {
+                this.parentElement.classList.add('active');
+            } else {
+                this.parentElement.classList.remove('active');
+            }
+        });
     });
 
-    // 初回実行
-    calculateFee();
+    document.getElementById('sendBtn').addEventListener('click', async function() {
+        const btn = this;
+        const form = document.getElementById('targetForm');
+
+        const companyName = form.querySelector('input[name="companyName"]').value;
+        const email = form.querySelector('input[name="email"]').value;
+
+        if (!companyName || !email) {
+            alert('「貴社名」と「メールアドレス」は必須入力です。');
+            return;
+        }
+
+        const formData = new FormData(form);
+        const gasUrl = 'https://script.google.com/macros/s/AKfycbwgr3Dpon5HgeQ8R_edliE7WRa7SNn_HKAdnOIOQ7Sv4P1DJpb0kTT1ta4RVa3bC80F2g/exec';
+
+        const payload = {
+            companyName: formData.get('companyName'),
+            email: formData.get('email'),
+            staffName: formData.get('staffName'),
+            industries: Array.from(form.querySelectorAll('input[name="industry"]:checked')).map(el => el.value).join(' / '),
+            tags: Array.from(form.querySelectorAll('input[name="tag"]:checked')).map(el => el.value).join(' / '),
+            capital: formData.get('capital'),
+            employees: formData.get('employees'),
+            established: formData.get('established'),
+            freeword: formData.get('freeword')
+        };
+
+        btn.disabled = true;
+        btn.innerText = "データを解析中...";
+
+        try {
+            await fetch(gasUrl, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'text/plain' }, 
+                body: JSON.stringify(payload)
+            });
+
+            alert('正常に送信されました。株式会社Aipathのコンサルタント、およびAIによる診断を開始します。結果到着までお待ちください。');
+            alert('正常に送信されました。AI Sales Xによる診断を開始します。結果到着までお待ちください。');
+            form.reset();
+            document.querySelectorAll('.checkbox-item').forEach(el => el.classList.remove('active'));
+        } catch (error) {
+            console.error('Error:', error);
+            alert('送信に失敗しました。時間をおいて再度お試しください。');
+        } finally {
+            btn.disabled = false;
+            btn.innerText = "診断を開始する（無料）";
+        }
+    });
 </script>
 
-<section id="reach-sim" style="background: #f4f7fa; padding: 80px 0;">
-    <div class="container" style="max-width: 650px; margin: 0 auto; padding: 0 20px;">
-        <div style="text-align: center; margin-bottom: 30px;">
-            <div style="display: inline-block; background: #2563eb; color: #fff; padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 700; margin-bottom: 10px;">AI Target Simulator</div>
-            <h2 style="font-size: 1.8rem; font-weight: 800; color: #102a43; line-height: 1.4;">あなたのビジネス、<br>Meta広告で何人に届く？</h2>
-        </div>
-
-        <div style="background: #fff; padding: 35px; border-radius: 24px; box-shadow: 0 10px 30px rgba(0,0,0,0.08);">
-            <form id="simForm">
-                
-                <div class="form-group" style="margin-bottom: 20px;">
-                    <label style="font-weight: 700; font-size: 0.95rem; color: #1e293b;">Q1. あなたの業種は？</label>
-                    <select name="industry" class="input-field" style="width:100%; margin-top:8px; padding:12px; border-radius:10px; border:2px solid #e2e8f0; background:#f8fafc;">
-                        <option value="">選択してください</option>
-                        <option value="飲食・カフェ">飲食・カフェ</option>
-                        <option value="美容・サロン">美容・サロン</option>
-                        <option value="EC・通販">EC・ネットショップ</option>
-                        <option value="不動産・建設">不動産・建設</option>
-                        <option value="BtoB・専門サービス">BtoB・専門サービス</option>
-                        <option value="スクール・教育">スクール・教育</option>
-                        <option value="その他">その他</option>
-                    </select>
-                </div>
-
-                <div class="form-group" style="margin-bottom: 20px;">
-                    <label style="font-weight: 700; font-size: 0.95rem; color: #1e293b;">Q2. 最も集客したい層（ペルソナ）は？</label>
-                    <select name="persona" class="input-field" style="width:100%; margin-top:8px; padding:12px; border-radius:10px; border:2px solid #e2e8f0; background:#f8fafc;">
-                        <option value="">選択してください</option>
-                        <option value="20-30代女性">20-30代の女性</option>
-                        <option value="40-60代女性">40-60代の女性</option>
-                        <option value="20-40代男性">20-40代の男性</option>
-                        <option value="経営者・意思決定者">経営者・個人事業主</option>
-                        <option value="近隣にお住まいの方">近隣にお住まいの全世代</option>
-                    </select>
-                </div>
-
-                <div class="form-group" style="margin-bottom: 20px;">
-                    <label style="font-weight: 700; font-size: 0.95rem; color: #1e293b;">Q3. 検討中の月間予算</label>
-                    <select name="budget" id="budgetSelect" class="input-field" style="width:100%; margin-top:8px; padding:12px; border-radius:10px; border:2px solid #e2e8f0; background:#f8fafc;">
-                        <option value="30000">3万円前後 (お試し)</option>
-                        <option value="100000">10万円前後 (集客重視)</option>
-                        <option value="300000">30万円〜 (売上最大化)</option>
-                    </select>
-                </div>
-
-
-
-                <div style="background: #f8fafc; padding: 20px; border-radius: 15px; border: 1px dashed #cbd5e1;">
-                    <p style="font-weight: 700; font-size: 0.9rem; margin-bottom: 15px; text-align: center; color: #475569;">詳細な「業種別・成功事例集」と<br>シミュレーション結果を送付します</p>
-                    <input type="text" name="companyName" placeholder="貴社名" class="input-field" style="width:100%; margin-bottom:12px; padding:14px; border:1px solid #cbd5e1; border-radius:10px; box-sizing: border-box;" required>
-                    <input type="email" name="email" placeholder="メールアドレス" class="input-field" style="width:100%; margin-bottom:20px; padding:14px; border:1px solid #cbd5e1; border-radius:10px; box-sizing: border-box;" required>
-                    
-                    <button type="button" id="submitBtn" style="width:100%; padding:20px; background: #2563eb; color:#fff; border:none; border-radius:12px; font-weight:800; cursor:pointer; font-size: 1.1rem; transition: 0.3s; box-shadow: 0 4px 15px rgba(37,99,235,0.3);">
-                        シミュレーション結果を受け取る
-                    </button>
-                </div>
-            </form>
-        </div>
-    </div>
-</section>
-
-<script>
-// 数値の変化演出
-const budgetSelect = document.getElementById('budgetSelect');
-budgetSelect.addEventListener('change', function() {
-    const budget = parseInt(this.value);
-    // 1円あたり0.5~1.5リーチの簡易計算
-    const min = (budget * 0.5).toLocaleString();
-    const max = (budget * 1.5).toLocaleString();
-    document.getElementById('reach-min').innerText = min;
-    document.getElementById('reach-max').innerText = max;
-});
-
-// 送信処理
-document.getElementById('submitBtn').addEventListener('click', async function() {
-    const btn = this;
-    const form = document.getElementById('simForm');
-    const formData = new FormData(form);
-    
-    if(!formData.get('companyName') || !formData.get('email') || !formData.get('industry')) {
-        alert('全ての項目を入力してください');
-        return;
-    }
-
-    btn.innerText = "データを送信中...";
-    btn.disabled = true;
-
-    const payload = {
-        industry: formData.get('industry'),
-        persona: formData.get('persona'),
-        budget: formData.get('budget'),
-        companyName: formData.get('companyName'),
-        email: formData.get('email'),
-        timestamp: new Date().toLocaleString()
-    };
-
-    try {
-        await fetch('https://script.google.com/macros/s/AKfycbyp9GQykVzGUOBeZZCx9mPzgzCHLzd4CWHOI0bHjcOMuG0d4-c3Nbz6CJPbL4oOk_EUAQ/exec', {
-            method: 'POST',
-            mode: 'no-cors',
-            body: JSON.stringify(payload)
-        });
-        alert('送信完了しました！業種に合わせた成功事例とシミュレーションをメールにてお送りします。');
-        form.reset();
-    } catch (e) {
-        alert('エラーが発生しました。');
-    } finally {
-        btn.innerText = "シミュレーション結果を受け取る";
-        btn.disabled = false;
-    }
-});
-</script>
-
-        <section id="contact">
-            <div class="container">
-                <div class="contact-section">
-                    <div style="text-align: center; margin-bottom: 40px;">
-                        <h2 style="font-size: clamp(1.8rem, 5vw, 2.5rem); font-weight: 800; margin-bottom: 16px;">無料診断・お問い合わせ</h2>
-                        <p style="opacity: 0.8; font-size: clamp(0.9rem, 2vw, 1rem);">貴社のアカウントをAIが分析し、<br class="md:hidden">改善余地をシミュレーションします。</p>
-                    </div>
-                    <div class="form-container">
-                        <div style="height: 100%; display: flex; align-items: center; justify-content: center; background: #f9f9fb; border-radius: 16px; min-height: 500px;">
-                            <p style="color: #8e8e93; text-align: center;">
-                                <i class="fa-brands fa-google" style="font-size: 2rem; margin-bottom: 12px;"></i><br>
-                                ここにGoogleフォームの埋め込みコードを挿入
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <footer>
-        <div class="container">
-            <div class="footer-flex" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;">
-                <div class="logo">Meta-ADX</div>
-                <div style="display: flex; gap: 24px;">
-                    <a href="#" style="text-decoration: none; color: var(--text-sub);">会社概要</a>
-                    <a href="#" style="text-decoration: none; color: var(--text-sub);">プライバシーポリシー</a>
-                </div>
-            </div>
-            <div style="margin-top: 40px; text-align: center; font-size: 0.75rem; opacity: 0.6;">
-                &copy; 2026 MetaAI-AD .
-            </div>
-        </div>
-    </footer>
-
-    <script>
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) entry.target.classList.add('active');
-            });
-        }, { threshold: 0.1 });
-
-        document.querySelectorAll('[data-aos]').forEach(el => observer.observe(el));
-
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if(target) target.scrollIntoView({ behavior: 'smooth' });
-            });
-        });
-    </script>
 </body>
 </html>
